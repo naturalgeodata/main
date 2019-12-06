@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
+
+        {% if title %}
+        <title>{{ title }} - Geodata_Hindsight</title>
+        {% else %}
+        <title>Welcome to Geodata_Hindsight</title>
+        {% endif %}
+    </head>
+    <body>
+        <div>Geodata_Hindsight:
+		<a href="{{ url_for('index') }}">Home</a>
+		{% if current_user.is_anonymous %}
+        	<a href="{{ url_for('login') }}">Login</a>
+		{% else %}
+		<a href="{{ url_for('logout') }}">Logout</a>
+		{% endif %}
+		{% if current_user.admin %}
+		Admin
+		{% elif current_user.manager %}
+        <a href="{{ url_for('projects', username=current_user.username )}}">Projects</a>
+		<a href="{{ url_for('register') }}">Register Employees</a>
+		{% endif %}
+
+	</div>
+	<hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+    </body>
+</html>

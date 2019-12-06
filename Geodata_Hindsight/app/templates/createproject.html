@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Create a Project</h1>
+    <form action="", method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.project_id.label }}<br>
+            {{ form.project_id(size=20) }}<br>
+            {% for error in form.project_id.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.project_name.label }}<br>
+            {{ form.project_name(size=30) }}<br>
+            {% for error in form.project_name.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.project_address.label }}<br>
+            {{ form.project_address(size=30) }}<br>
+            {% for error in form.project_address.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+            </p>
+        <p>
+            {{ form.project_city.label }}<br>
+            {{ form.project_city(size=20) }}<br>
+            {% for error in form.project_city.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.project_state.label }}<br>
+            {{ form.project_state(size=20) }}<br>
+            {% for error in form.project_state.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.submit() }}
+        </p>
+    </form>
+{% endblock %}
