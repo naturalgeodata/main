@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/josh/Python/Flask/Geodata_Hindsight/venv"
+VIRTUAL_ENV="/home/josh/Python/Flask/main/Geodata_Hindsight/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

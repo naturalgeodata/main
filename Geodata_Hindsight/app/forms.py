@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
-from app.models import User
+from app.models import User, Project, Company
 
 class LoginForm(FlaskForm):
 	username = StringField('Username', validators=[DataRequired()])
@@ -36,12 +36,12 @@ class ProjectForm(FlaskForm):
 	project_state = StringField('State', validators=[DataRequired()])
 	submit = SubmitField('Create Project')
 
-	def validate_name(self, name):
+	def validate_project_name(self, name):
 		project = Project.query.filter_by(project_name=name.data).first()
 		if project is not None:
-			raise ValidationError('Please use a different project name.')
+			raise ValidationError('Please use a different project name. (This one might exist already!)')
 
-	def validate_id(self, id):
+	def validate_project_id(self, id):
 		id = Project.query.filter_by(internal_id=id.data).first()
 		if id is not None:
-			raise ValidationError('Please use a different project name.')
+			raise ValidationError('Please use a different project ID. (This one might exist already!)')

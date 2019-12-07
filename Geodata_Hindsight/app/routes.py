@@ -60,17 +60,21 @@ def register():
     return render_template('register.html', title='Register Users', form=form)
 
 #Projects View
-@app.route('/projects/<username>', methods=['GET','POST'])
+@app.route('/projects/<username>')
+@login_required
 def projects(username):
+    projects = current_user.projects
+    return render_template('projects.html', projects=projects)
 
-    return render_template('projects.html')
-
+#Create Projects view
 @app.route('/projects/<username>/createproject', methods=['GET','POST'])
+@login_required
 def createproject(username):
     form = ProjectForm()
     if form.validate_on_submit():
-        address = str(form.project_address.data + form.project_city.data + form.project_state.data)
+        address = str(form.project_address.data + ", " + form.project_city.data + ", " + form.project_state.data)
         project = Project(internal_id=form.project_id.data, project_name=form.project_name.data, project_address=address)
+        project.creator_id=current_user.id
         db.session.add(project)
         db.session.commit()
         flash('Congratulations, you have succesfully created a project: {}'.format(project.project_name))
