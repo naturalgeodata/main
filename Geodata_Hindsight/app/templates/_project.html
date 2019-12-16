@@ -1,13 +1,18 @@
-<br>
-<table>
-    <tr valign="top">
-        <td>
-          Project ID: {{ project.internal_id }}<br>
-          Name: {{ project.project_name }}
+<a href="{{ url_for('project', projectid=project.internal_id) }}" style='text-decoration:none; color:black'>
+<table class="table table-hover">
+    <tr>
+        <td width="70px">
+         
+          
+        </td>
+        <td width = "120px">
+            Name:<br> {{ project.project_name }}<br>
+            Project ID:<br> {{ project.internal_id }}
         </td>
         <td>
-          Project Address: {{ project.project_address }}<br>
-          Created: {{ project.time_created }}
+            Project Address:<br> {{ project.project_address }}<br>
+            Created:<br> {{ project.time_created }}
         </td>
     </tr>
 </table>
+</a>

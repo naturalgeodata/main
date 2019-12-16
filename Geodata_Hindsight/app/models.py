@@ -12,6 +12,7 @@ class User(UserMixin, db.Model):
 	company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
 	manager = db.Column(db.Boolean, default=False)
 	admin = db.Column(db.Boolean, default=False)
+	current_project = db.Column(db.Integer)
 	projects = db.relationship('Project', backref='creator', lazy='dynamic')
 
 	def __repr__(self):
@@ -40,9 +41,19 @@ class Project(db.Model):
 	project_address = db.Column(db.String(120), unique=True)
 	time_created = db.Column(db.DateTime, default=datetime.utcnow())
 	creator_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-	
+	tasks = db.relationship('Task', backref='project', lazy='dynamic')
+
 	def __repr__(self):
 	    return '<Project {}>'.format(self.project_name)
+
+class Task(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.String(120))
+    date_created = db.Column(db.DateTime, default=datetime.utcnow())
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
+
+    def __repr__(self):
+        return '<Task Contents: {}>'.format(self.body)
 
 @login.user_loader
 def load_user(id):

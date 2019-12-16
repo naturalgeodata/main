@@ -45,3 +45,8 @@ class ProjectForm(FlaskForm):
 		id = Project.query.filter_by(internal_id=id.data).first()
 		if id is not None:
 			raise ValidationError('Please use a different project ID. (This one might exist already!)')
+			
+class TaskForm(FlaskForm):
+    task_body = StringField('Task', validators=[DataRequired()], default="Add Task.")
+    submit = SubmitField('+')
+    check_box = BooleanField('Task Completed', default=False)

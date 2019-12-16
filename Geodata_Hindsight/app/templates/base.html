@@ -1,12 +1,9 @@
 {% extends 'bootstrap/base.html' %}
-
-    <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
     {% block title %}
         {% if title %}
-        <title>{{ title }} - Geodata_Hindsight</title>
+        {{ title }} - Geodata_Hindsight
         {% else %}
-        <title>Welcome to Geodata_Hindsight</title>
+        Welcome to Geodata_Hindsight
         {% endif %}
     {% endblock %}
         
@@ -20,14 +17,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>    
+                </button>
                 <a class="navbar-brand" href="{{ url_for('index') }}">Geodata_Hindsight:</a>
             </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
 		        <li><a href="{{ url_for('index') }}">Home</a></li>
+		        <li><a href="{{ url_for('projects', username=current_user.username )}}">Projects</a></li>
                 {% if current_user.manager %}
-                <li><a href="{{ url_for('projects', username=current_user.username )}}">Projects</a></li>
 		        <li><a href="{{ url_for('register') }}">Register Employees</a></li>
 		        {% endif %}
             </ul>

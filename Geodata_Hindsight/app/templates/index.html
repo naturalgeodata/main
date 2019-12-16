@@ -1,19 +1,32 @@
 {% extends "base.html" %}
-
+    
     {% block app_content %}
         <h1>Hello, {{ current_user.username }}!</h1>
-
-        <div id='map' style='width: 400px; height: 300px;'></div>
-        <script>
-            mapboxgl.accessToken = 'pk.eyJ1IjoibmF0dXJhbGdlb2RhdGEiLCJhIjoiY2szc3ZqdHhjMDAyczNvbm1uaDA5bXdnYyJ9.T1pC5tn7MwSDa-p5M3_89w';
-            
-			var map = new mapboxgl.Map({
-                container: 'map',
-                style: 'mapbox://styles/naturalgeodata/ck3svpi9o1us31cpgeimhbq03',
-				center: [-82.4705, 35.4014],
-				zoom: 14
-            });
-
-			map.addControl(new mapboxgl.NavigationControl());
-        </script>
+        <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
+        <table class="table">
+            <tr>
+            <td>
+                <div id='map' style='width: 400px; height: 300px;'></div>
+                <script>
+                    mapboxgl.accessToken = 'pk.eyJ1IjoibmF0dXJhbGdlb2RhdGEiLCJhIjoiY2szc3ZqdHhjMDAyczNvbm1uaDA5bXdnYyJ9.T1pC5tn7MwSDa-p5M3_89w';
+                    
+        			var map = new mapboxgl.Map({
+                        container: 'map',
+                        style: 'mapbox://styles/naturalgeodata/ck3svpi9o1us31cpgeimhbq03',
+        				center: [-82.4705, 35.4014],
+        				zoom: 14
+                    });
+        
+        			map.addControl(new mapboxgl.NavigationControl());
+                </script>
+            </td>
+            <td>
+                <h3>Recent Projects:</h3>
+                {% for project in projects %}
+                    {% include '_project.html' %}
+                {% endfor %}
+            </td>
+            </tr>
+        </table>
     {% endblock %}

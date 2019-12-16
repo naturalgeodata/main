@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+    <h1>{{ project.project_name }}</h1>
+    <p>Project # {{ project.internal_id }}</p>
+    <p>{{ project.project_address }}</p>
+    
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Tasks:</th>
+            </tr>
+        </thead>
+    </table>
+    
+    {% for task in tasks %}
+        <p>{{ task.body }} {{ form.check_box() }} <a href="{{ url_for('delete_task', taskid=task.id) }}">Delete Task</a></p>
+    {% endfor %}
+    
+    <form action="" method="post">
+    {{ form.hidden_tag() }}
+    <div><p>{{ form.task_body(size=40) }} {{ form.submit() }}
+        {% for error in form.task_body.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}</p></div>
+    </form>
+    
+    <div style="position: absolute; bottom: 5px">
+        {% if current_user.manager %}
+            <p><a href="{{ url_for('delete_project', projectid=project.id) }}">Delete Project</a></p>
+        {% endif %}
+        <p><b>Natural Geodata PLLC (C) 2019</b></p>
+    </div>
+    
+{% endblock %}
